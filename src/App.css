@@ -1,0 +1,15 @@
+@import "tailwindcss";
+
+@font-face {
+    font-family: "Teletext";
+    src: url(/fonts/EuropeanTeletext.ttf) format(truetype);
+}
+
+.prim-blue{
+    color: #0604fa;
+}
+
+.back-blue{
+    background-color: #0604fa;
+    color: white;
+}
