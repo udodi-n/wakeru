@@ -7,12 +7,19 @@ function FileDisplay() {
     const [src, setSrc] = useState(null)
     useEffect(() => {
         async function fetchFile() {
-            const res = await fetch(`${import.meta.env.VITE_FETCH_URL}api/fetch?id=${id}`)
+            try{
+                const res = await fetch(`${import.meta.env.VITE_FETCH_URL}api/fetch?id=${id}`, {
+                method: "GET",
+            })
+            console.log('got it')
             const data = await res.json()
             const name = data.name;
             const type = data.type; 
             console.log(type)
             setSrc(data.url)
+            } catch(error) {
+                console.log('fuckkk')
+            }
             // console.log(data.type) // is it actually "image/png"?
             // console.log(data.buffer.data.length) // should be 134129
         }
