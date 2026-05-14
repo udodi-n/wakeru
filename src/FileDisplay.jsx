@@ -5,7 +5,7 @@ import Header from './Header'
 function FileDisplay() {
     const { id } = useParams()
     console.log(id)
-    
+
     const [src, setSrc] = useState(null)
     useEffect(() => {
         async function fetchFile() {
@@ -27,7 +27,7 @@ function FileDisplay() {
             // console.log(data.buffer.data.length) // should be 134129
         }
 
-        return () => fetchFile()
+        fetchFile()
     }, [])
 
     return(
