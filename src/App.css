@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 @font-face {
-    font-family: "Teletext";
+    font-family: "Teletext" serif;
     src: url(/fonts/EuropeanTeletext.ttf) format(truetype);
 }
 
