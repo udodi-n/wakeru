@@ -9,16 +9,13 @@ function FileDisplay() {
     const [src, setSrc] = useState(null)
     useEffect(() => {
         async function fetchFile() {
-            console.log('hi')
             try{
-                const res = await fetch(`https://wakeru-backend.onrender.com/api/fetch?id=${id}`, {
+                const res = await fetch(`${import.meta.env.VITE_FETCH_URL}api/fetch?id=${id}`, {
                 method: "GET",
             })
-            console.log('got it')
             const data = await res.json()
             const name = data.name;
             const type = data.type; 
-            console.log(type)
             setSrc(data.url)
             } catch(error) {
                 console.log('fuckkk')
