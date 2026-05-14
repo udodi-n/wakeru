@@ -7,13 +7,16 @@ function Home() {
     const [check, setCheck] = useState(false)
     const [url, setUrl] = useState('')
     const [textval, setVal] = useState()
+    const [serviceMsg, setServiceMsg] = useState('')
     const root = window.location.href
     async function uploadImage(e) {
         e.preventDefault()
         if(!value) return
+        let dots = 0;
+
         const arrayBuffer = await value.arrayBuffer();
         console.log(value.type)
-        const res = await fetch('http://localhost:3000/api/upload', {
+        const res = await fetch(`${process.env.FETCH_URL}api/upload`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/octet-stream',
                 'X-File-Name': (value.name).split('.')[0],
@@ -28,7 +31,18 @@ function Home() {
             console.log(textData)
         })
         setCheck(true)
+        // const interval = setInterval(() => {
+            
+        //     dots = (dots + 1) % 4;
+        //     setServiceMsg(`Loading` + '.'.repeat(dots))
+        //                     console.log("oi");
+        //                     console.log(check)
 
+        //     // if(!check) {
+        //     //     console.log('oi')
+        //     //     clearInterval(interval)
+        //     // }
+        // }, 4000)
     }
     return(
         <>
@@ -54,6 +68,7 @@ function Home() {
                         </div>
                 </form>
             </div>
+            <p>{serviceMsg}</p>
         </div>
         </>
     )

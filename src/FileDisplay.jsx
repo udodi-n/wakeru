@@ -7,15 +7,12 @@ function FileDisplay() {
     const [src, setSrc] = useState(null)
     useEffect(() => {
         async function fetchFile() {
-            const res = await fetch(`http://localhost:3000/api/fetch?id=${id}`)
+            const res = await fetch(`${process.env.FETCH_URL}api/fetch?id=${id}`)
             const data = await res.json()
             const name = data.name;
             const type = data.type; 
             console.log(type)
-            const base64 = data.buffer;
-
-            const url = `data:${type};base64,${base64}`
-            setSrc(url)
+            setSrc(data.url)
             // console.log(data.type) // is it actually "image/png"?
             // console.log(data.buffer.data.length) // should be 134129
         }
@@ -28,7 +25,7 @@ function FileDisplay() {
         <div className="font-[Teletext] h-[100vh] px-5">
             <Header />
             <div className='mt-10 flex flex-col items-center'>
-                <div className='p-3 border border-1'><img class src={src} alt="" /></div>
+                <div className='p-3 border w-100 border-1'><img className=" object-cover" src={src} alt="" /></div>
                 <a className="back-blue mt-10" href={src} download>Download Image</a>
             </div>
         </div>
