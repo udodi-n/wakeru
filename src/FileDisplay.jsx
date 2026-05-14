@@ -1,16 +1,16 @@
 import { useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import Header from './Header'
+import Footer from './Footer'
 
 function FileDisplay() {
     const { id } = useParams()
-    console.log(id)
 
     const [src, setSrc] = useState(null)
     useEffect(() => {
         async function fetchFile() {
             try{
-                const res = await fetch(`${import.meta.env.VITE_FETCH_URL}api/fetch?id=${id}`, {
+                const res = await fetch(`${import.meta.env.VITE_FETCH_URL || "http://localhost:3000/"}api/fetch?id=${id}`, {
                 method: "GET",
             })
             const data = await res.json()
@@ -18,7 +18,8 @@ function FileDisplay() {
             const type = data.type; 
             setSrc(data.url)
             } catch(error) {
-                console.log('fuckkk')
+                // console.log('fuckkk')
+                console.log(error.message)
             }
             // console.log(data.type) // is it actually "image/png"?
             // console.log(data.buffer.data.length) // should be 134129
@@ -35,6 +36,7 @@ function FileDisplay() {
                 <div className='p-3 border w-100 border-1'><img className=" object-cover" src={src} alt="" /></div>
                 <a className="back-blue mt-10" href={src} download>Download Image</a>
             </div>
+            <Footer />
         </div>
         
         </>
