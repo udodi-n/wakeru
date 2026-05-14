@@ -4,12 +4,14 @@ import Header from './Header'
 
 function FileDisplay() {
     const { id } = useParams()
+    console.log(id)
+    
     const [src, setSrc] = useState(null)
     useEffect(() => {
         async function fetchFile() {
             console.log('hi')
             try{
-                const res = await fetch(`${import.meta.env.VITE_FETCH_URL}api/fetch?id=${id}`, {
+                const res = await fetch(`https://wakeru-backend.onrender.com/api/fetch?id=${id}`, {
                 method: "GET",
             })
             console.log('got it')
