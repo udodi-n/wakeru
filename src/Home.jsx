@@ -16,7 +16,7 @@ function Home() {
 
         const arrayBuffer = await value.arrayBuffer();
         console.log(value.type)
-        const res = await fetch(`${process.env.FETCH_URL}api/upload`, {
+        const res = await fetch(`${import.meta.env.VITE_FETCH_URL}api/upload`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/octet-stream',
                 'X-File-Name': (value.name).split('.')[0],

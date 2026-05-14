@@ -7,7 +7,7 @@ function FileDisplay() {
     const [src, setSrc] = useState(null)
     useEffect(() => {
         async function fetchFile() {
-            const res = await fetch(`${process.env.FETCH_URL}api/fetch?id=${id}`)
+            const res = await fetch(`${import.meta.env.VITE_FETCH_URL}api/fetch?id=${id}`)
             const data = await res.json()
             const name = data.name;
             const type = data.type; 
