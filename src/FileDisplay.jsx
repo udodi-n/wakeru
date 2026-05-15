@@ -33,7 +33,9 @@ function FileDisplay() {
         <div className="font-[Teletext] h-[100vh] px-5">
             <Header />
             <div className='mt-10 flex flex-col items-center'>
-                <div className='p-3 border w-100 border-1'><img className=" object-cover" src={src} alt="" /></div>
+                <div className='p-3 border border-1' style={{
+                    width: "calc(19rem + 1vh)"
+                }}><img className=" object-cover" src={src} alt="" /></div>
                 <a className="back-blue mt-10" href={src} download>Download Image</a>
             </div>
             <Footer />

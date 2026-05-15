@@ -9,6 +9,7 @@ function Home() {
     const [url, setUrl] = useState('')
     const [textval, setVal] = useState()
     const [serviceMsg, setServiceMsg] = useState('submit')
+    const [error, setError] = useState('')
     const [disable, setDisable] = useState(false)
     const root = window.location.href
     async function uploadImage(e) {
@@ -30,12 +31,15 @@ function Home() {
             },
             body: arrayBuffer
         })
-        .then(res => res.text())
-        .then(textData => {
-            const id = textData
-            setVal(`${root}file/${id}`)
-            console.log(textData)
-        })
+        if (!res.ok){
+            setError('File size is too big dummy 🍆')
+            return;
+        }
+        const data = await res.json()
+        const id = data.id
+        setVal(`${root}file/${id}`)
+        //     console.log(textData)
+        // })
         setCheck(true)
         
     }
@@ -43,13 +47,15 @@ function Home() {
         <>
         <div className="h-fit px-5 w-full flex flex-col font-[Teletext] items-center">
             <Header />
+            <p className="mt-5">10MB file limit</p>
             <div className='w-full border border-black lg:w-190 mt-5 flex justify-center items-center'
             style={{
                 height: "calc(20rem + 2vh)",
             }}>
                 <form className={`h-full w-full lg:text-2xl flex flex-col justify-center items-center`} onSubmit={(e) => uploadImage(e)} action="">
-                    <div className={`border border-black h-10 sm:w-90 lg:w-120 ${check? "flex":"hidden"}`}>
-                            <textarea className='prim-blue overflow-x-scroll whitespace-nowrap w-full text-[14px]' value= {textval} onChange={(e) => setVal(e.target.value)}/>
+                    <div className={` h-fit sm:w-120 w-75 lg:w-120 ${check? "flex flex-col":"hidden"}`}>
+                            <textarea className='prim-blue border border-black px-3 h-12 w-full text-[14px]' value= {textval} onChange={(e) => setVal(e.target.value)}/>
+                                <button className='back-blue' onClick={() => setCheck(false)}>Upload again</button>
                         </div>
                     <div className={`px-20  text-center flex justify-center items-center ${check? "hidden" : "flex"}`}>
                         
@@ -66,6 +72,7 @@ function Home() {
                         </div>
                 </form>
             </div>
+            <p className={`mt-7 ${check? "hidden": ""}`}>{error}</p>
             <div className='flex flex-1 flex-col w-full items-center justify-top mt-10 '>
                 <h1 className=';g:w-190 mb-10 text-4xl'>Nothing beats <br /> simplicity</h1>
                 <img className='lg:w-190' src="https://res.cloudinary.com/dqiywjlwt/image/upload/n5td8f9bacf4sa0x9yxk?_a=BAMAPqWQ0" alt="" />
